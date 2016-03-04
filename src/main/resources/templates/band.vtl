@@ -5,7 +5,7 @@
 #if ($band.getVenues().size() != 0)
   <ul>
   #foreach ($venue in $band.getVenues())
-    <li>$venue.getName()</li>
+    <li><a href="/venues/$venue.getId()">$venue.getName()</a></li>
   #end
   </ul>
 #else

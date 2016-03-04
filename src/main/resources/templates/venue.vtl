@@ -1,0 +1,34 @@
+<h3>$venue.getName()</h3>
+<hr>
+
+<h4>Bands for $venue.getName()</h4>
+#if ($venue.getBands().size() != 0)
+  <ul>
+  #foreach ($band in $venue.getBands())
+    <li>$band.getName()</li>
+  #end
+  </ul>
+#else
+  <p>No bands yet!</p>
+#end
+
+<h4>Add Bands</h4>
+<form action="/venues/$venue.getId()/addband" method="post">
+  <label for="band">Select a Venue</label>
+  <select name="band">
+  #foreach ($band in $bands)
+    #if (!$venue.getBands().contains($band))
+      <option value="$band.getId()">$band.getName()</option>
+    #end
+  #end
+  </select>
+  <button type="submit" class="btn btn-primary">Add Band</button>
+</form>
+
+<hr>
+
+<a href="/venues"><button class="btn btn-default">All Venues</button></a>
+<a href="/"><button class="btn btn-primary">Home</button></a>
+<form action="/venues/deleted/$venue.getId()" method="post">
+  <button type="submit" class="btn btn-danger">Delete</button>
+</form>
