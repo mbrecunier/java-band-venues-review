@@ -48,4 +48,25 @@ public class AppTest extends FluentTest {
     submit(".btn-success");
     assertThat(pageSource()).contains("Salsa Kings");
   }
+
+  @Test
+  public void eachBandHasIndividualPage() {
+    Band testBand = new Band("Salad Bar");
+    testBand.save();
+    String bandRoute = String.format("http://localhost:4567/bands/%d", testBand.getId());
+    goTo(bandRoute);
+    assertThat(pageSource()).contains("Venues Salad Bar Plays");
+  }
+
+  @Test
+  public void addingVenueToBandDisplays() {
+    Band testBand = new Band("Salad Bar");
+    testBand.save();
+    Venue testVenue = new Venue("Withering Tree");
+    testVenue.save();
+    testBand.addVenue(testVenue);
+    String bandRoute = String.format("http://localhost:4567/bands/%d", testBand.getId());
+    goTo(bandRoute);
+    assertThat(pageSource()).contains("Withering Tree");
+  }
 }

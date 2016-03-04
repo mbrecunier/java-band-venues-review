@@ -1,0 +1,27 @@
+<h3>$band.getName()</h3>
+
+<h4>Venues $band.getName() Plays</h4>
+#if ($band.getVenues().size() != 0)
+  <ul>
+  #foreach ($venue in $band.getVenues())
+    <li><a href="/venues/$venue.getId()">$venue.getName()</a></li>
+  #end
+  </ul>
+#else
+  <p>No venues yet!</p>
+#end
+
+<h4>Add Venues</h4>
+<form action="/bands/$band.getId()/addvenue" method="post">
+  <label for="venue">Select a Venue</label>
+  <select>
+  #foreach ($venue in $venues)
+    #if (!$band.getVenues().contains($venue))
+      <option value="$venue.getId()">$venue.getName()</option>
+    #else
+      <option disabled>$band.getName() has played everywhere!</option>
+    #end
+  </select>
+  #end
+  <button type="submit" class="btn btn-primary">Add Venue</button>
+</form>

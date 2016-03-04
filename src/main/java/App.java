@@ -34,5 +34,28 @@ public class App {
       return null;
     });
 
+    get("/bands/:id", (request, response) -> {
+      HashMap<String, Object> model = new HashMap<String, Object>();
+      int id = Integer.parseInt(request.params("id"));
+      Band band = Band.find(id);
+      List<Venue> venues = Venue.all();
+      model.put("band", band);
+      model.put("venues", venues);
+      model.put("template", "templates/band.vtl");
+      return new ModelAndView(model, layout);
+    }, new VelocityTemplateEngine());
+
+    post("/bands/:id/addvenue", (request, response) -> {
+      HashMap<String, Object> model = new HashMap<String, Object>();
+      int bandId = Integer.parseInt(request.params("id"));
+      int venueId = Integer.parseInt(request.queryParams("venue"));
+      Band band = Band.find(bandId);
+      Venue venue = Venue.find(venueId);
+      band.addVenue(venue);
+      response.redirect("/bands/:id");
+      return null;
+    });
+
+
   }
 }
