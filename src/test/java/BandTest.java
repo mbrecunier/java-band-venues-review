@@ -59,7 +59,16 @@ public class BandTest {
     testBand.save();
     testBand.delete();
     assertFalse(Band.all().contains(testBand));
+  }
 
+  @Test
+  public void deleteAll_deletesAllBands() {
+    Band testBand1 = new Band("Constant Banana");
+    Band testBand2 = new Band("Horse Mouth");
+    testBand1.save();
+    testBand2.save();
+    Band.deleteAll();
+    assertTrue(Band.all().size() == 0);
   }
 
 
