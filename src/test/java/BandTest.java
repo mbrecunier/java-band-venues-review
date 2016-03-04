@@ -32,5 +32,12 @@ public class BandTest {
     assertTrue(testBand1.equals(testBand2));
   }
 
+  @Test
+  public void save_savesBandToDatabase_true() {
+    Band testBand = new Band("Constant Banana");
+    testBand.save();
+    assertTrue(Band.all().contains(testBand));
+  }
+
 
 }
