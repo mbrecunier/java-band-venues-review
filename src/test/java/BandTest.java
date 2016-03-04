@@ -14,5 +14,11 @@ public class BandTest {
     assertTrue(testBand instanceof Band);
   }
 
+  @Test
+  public void getName_returnsName_string() {
+    Band testBand = new Band("Stars");
+    assertEquals("Stars", testBand.getName());
+  }
+
 
 }
