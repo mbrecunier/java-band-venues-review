@@ -28,7 +28,7 @@ public class AppTest extends FluentTest {
   }
 
   @Test
-  public void noBandsDisplay() {
+  public void noBandsDisplayAtFirst() {
     goTo("http://localhost:4567/bands");
     assertThat(pageSource()).contains("No bands yet!");
   }
@@ -39,5 +39,13 @@ public class AppTest extends FluentTest {
     testBand.save();
     goTo("http://localhost:4567/bands");
     assertThat(pageSource()).contains("Milky Way");
+  }
+
+  @Test
+  public void newlyAddedBandsDisplayCorrectly() {
+    goTo("http://localhost:4567/bands");
+    fill("#name").with("Salsa Kings");
+    submit(".btn-success");
+    assertThat(pageSource()).contains("Salsa Kings");
   }
 }
