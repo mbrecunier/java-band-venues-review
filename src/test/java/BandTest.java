@@ -39,5 +39,19 @@ public class BandTest {
     assertTrue(Band.all().contains(testBand));
   }
 
+  @Test
+  public void getId_returnsId() {
+    Band testBand = new Band("Constant Banana");
+    testBand.save();
+    assertTrue(testBand.getId() > 0);
+  }
+
+  @Test
+  public void find_returnsBandFromDatabase() {
+    Band testBand = new Band("Constant Banana");
+    testBand.save();
+    assertEquals(testBand, Band.find(testBand.getId()));
+  }
+
 
 }
