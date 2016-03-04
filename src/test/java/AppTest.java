@@ -23,7 +23,21 @@ public class AppTest extends FluentTest {
 
   @Test
   public void rootTest() {
-      goTo("http://localhost:4567/");
-      assertThat(pageSource()).contains("Bands And Venues");
+    goTo("http://localhost:4567/");
+    assertThat(pageSource()).contains("Bands And Venues");
+  }
+
+  @Test
+  public void noBandsDisplay() {
+    goTo("http://localhost:4567/bands");
+    assertThat(pageSource()).contains("No bands yet!");
+  }
+
+  @Test
+  public void allBandsDisplay() {
+    Band testBand = new Band("Milky Way");
+    testBand.save();
+    goTo("http://localhost:4567/bands");
+    assertThat(pageSource()).contains("Milky Way");
   }
 }

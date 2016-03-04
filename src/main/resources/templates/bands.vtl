@@ -1,0 +1,11 @@
+<h3>All Bands</h3>
+
+#if ($bands.size() != 0)
+    <ul>
+      #foreach($band in $bands)
+        <li><a href="/bands/$band.getId()">$band.getName()</a></li>
+      #end        
+    </ul>
+#else
+  <p>No bands yet!</p>
+#end
