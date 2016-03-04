@@ -102,4 +102,25 @@ public class AppTest extends FluentTest {
     submit(".btn-success");
     assertThat(pageSource()).contains("The Cave");
   }
+
+  @Test
+  public void eachVenueHasIndividualPage() {
+    Venue testVenue = new Venue("The Room");
+    testVenue.save();
+    String venueRoute = String.format("http://localhost:4567/venues/%d", testVenue.getId());
+    goTo(venueRoute);
+    assertThat(pageSource()).contains("Bands for The Room");
+  }
+
+  @Test
+  public void addingBandToVenueDisplays() {
+    Band testBand = new Band("Salad Bar");
+    testBand.save();
+    Venue testVenue = new Venue("Withering Tree");
+    testVenue.save();
+    testVenue.addBand(testBand);
+    String venueRoute = String.format("http://localhost:4567/venues/%d", testVenue.getId());
+    goTo(venueRoute);
+    assertThat(pageSource()).contains("Salad Bar");
+  }
 }
