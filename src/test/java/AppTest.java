@@ -55,7 +55,7 @@ public class AppTest extends FluentTest {
     testBand.save();
     String bandRoute = String.format("http://localhost:4567/bands/%d", testBand.getId());
     goTo(bandRoute);
-    assertThat(pageSource()).contains("Venues Salad Bar Plays");
+    assertThat(pageSource()).contains("Venues for Salad Bar");
   }
 
   @Test
@@ -68,5 +68,38 @@ public class AppTest extends FluentTest {
     String bandRoute = String.format("http://localhost:4567/bands/%d", testBand.getId());
     goTo(bandRoute);
     assertThat(pageSource()).contains("Withering Tree");
+  }
+
+  @Test
+  public void updatingBandNameDisplaysCorrectly() {
+    Band testBand = new Band("Salad Bar");
+    testBand.save();
+    String bandRoute = String.format("http://localhost:4567/bands/%d/update", testBand.getId());
+    goTo(bandRoute);
+    fill("#name").with("Salad Tavern");
+    submit(".btn-info");
+    assertThat(pageSource()).contains("Salad Tavern");
+  }
+
+  @Test
+  public void noVenuesDisplayAtFirst() {
+    goTo("http://localhost:4567/venues");
+    assertThat(pageSource()).contains("No venues yet!");
+  }
+
+  @Test
+  public void allVenuesDisplay() {
+    Venue testVenue = new Venue("Blues House");
+    testVenue.save();
+    goTo("http://localhost:4567/venues");
+    assertThat(pageSource()).contains("Blues House");
+  }
+
+  @Test
+  public void newlyAddedVenuesDisplayCorrectly() {
+    goTo("http://localhost:4567/venues");
+    fill("#name").with("The Cave");
+    submit(".btn-success");
+    assertThat(pageSource()).contains("The Cave");
   }
 }

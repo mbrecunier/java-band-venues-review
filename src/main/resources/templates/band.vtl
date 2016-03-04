@@ -1,6 +1,7 @@
 <h3>$band.getName()</h3>
+<hr>
 
-<h4>Venues $band.getName() Plays</h4>
+<h4>Venues for $band.getName()</h4>
 #if ($band.getVenues().size() != 0)
   <ul>
   #foreach ($venue in $band.getVenues())
@@ -14,14 +15,21 @@
 <h4>Add Venues</h4>
 <form action="/bands/$band.getId()/addvenue" method="post">
   <label for="venue">Select a Venue</label>
-  <select>
+  <select name="venue">
   #foreach ($venue in $venues)
     #if (!$band.getVenues().contains($venue))
       <option value="$venue.getId()">$venue.getName()</option>
-    #else
-      <option disabled>$band.getName() has played everywhere!</option>
     #end
-  </select>
   #end
+  </select>
   <button type="submit" class="btn btn-primary">Add Venue</button>
+</form>
+
+<hr>
+
+<a href="/bands"><button class="btn btn-default">All Bands</button></a>
+<a href="/"><button class="btn btn-primary">Home</button></a>
+<a href="/bands/$band.getId()/update"><button class="btn btn-info">Update Name</button></a>
+<form action="/bands/deleted/$band.getId()" method="post">
+  <button type="submit" class="btn btn-danger">Delete</button>
 </form>

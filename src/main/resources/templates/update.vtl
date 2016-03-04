@@ -1,0 +1,11 @@
+<h3>Update Information for $band.getName()</h3>
+
+<form action="/bands/$band.getId()/update" method="post">
+  <label for="name">New Name</label>
+  <input name="name" type="text" id="name">
+  <button type="submit" class="btn btn-info">Update</button>
+</form>
+
+<a href="/bands/$band.getId()"><button class="btn btn-warning">Cancel</a>
+<a href="/bands"><button class="btn btn-default">All Bands</button></a>
+<a href="/"><button class="btn btn-primary">Home</button></a>

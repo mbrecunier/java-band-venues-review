@@ -52,7 +52,45 @@ public class App {
       Band band = Band.find(bandId);
       Venue venue = Venue.find(venueId);
       band.addVenue(venue);
-      response.redirect("/bands/:id");
+      model.put("band", band);
+      model.put("template", "templates/band.vtl");
+      return new ModelAndView(model, layout);
+    }, new VelocityTemplateEngine());
+
+    get("/bands/:id/update", (request, response) -> {
+      HashMap<String, Object> model = new HashMap<String, Object>();
+      int bandId = Integer.parseInt(request.params("id"));
+      Band band = Band.find(bandId);
+      model.put("band", band);
+      model.put("template", "templates/update.vtl");
+      return new ModelAndView(model, layout);
+    }, new VelocityTemplateEngine());
+
+    post("/bands/:id/update", (request, response) -> {
+      HashMap<String, Object> model = new HashMap<String, Object>();
+      int bandId = Integer.parseInt(request.params("id"));
+      Band band = Band.find(bandId);
+      String newName = request.queryParams("name");
+      band.update(newName);
+      model.put("band", band);
+      model.put("template", "templates/band.vtl");
+      return new ModelAndView(model, layout);
+    }, new VelocityTemplateEngine());
+
+    get("/venues", (request, response) -> {
+      HashMap<String, Object> model = new HashMap<String, Object>();
+      List<Venue> venues = Venue.all();
+      model.put("venues", venues);
+      model.put("template", "templates/venues.vtl");
+      return new ModelAndView(model, layout);
+    }, new VelocityTemplateEngine());
+
+    post("/venues/add", (request, response) -> {
+      HashMap<String, Object> model = new HashMap<String, Object>();
+      String name = request.queryParams("name");
+      Venue newVenue = new Venue(name);
+      newVenue.save();
+      response.redirect("/venues");
       return null;
     });
 

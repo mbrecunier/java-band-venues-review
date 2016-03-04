@@ -1,0 +1,20 @@
+<h3>All Venues</h3>
+
+#if ($venues.size() != 0)
+    <ul>
+      #foreach($venue in $venues)
+        <li><a href="/venues/$venue.getId()">$venue.getName()</a></li>
+      #end
+    </ul>
+#else
+  <p>No venues yet!</p>
+#end
+
+<h4>Add A Venue</h4>
+<form action="/venues/add" method="post">
+  <label for="name">Venue Name</label>
+  <input type="text" id="name" name="name" required>
+  <button type="submit" class="btn btn-success">Add</button>
+</form>
+
+<a href="/"><button class="btn btn-primary">Home</button></a>
