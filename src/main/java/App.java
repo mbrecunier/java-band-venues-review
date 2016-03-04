@@ -51,8 +51,10 @@ public class App {
       int venueId = Integer.parseInt(request.queryParams("venue"));
       Band band = Band.find(bandId);
       Venue venue = Venue.find(venueId);
+      List<Venue> venues = Venue.all();
       band.addVenue(venue);
       model.put("band", band);
+      model.put("venues", venues);
       model.put("template", "templates/band.vtl");
       return new ModelAndView(model, layout);
     }, new VelocityTemplateEngine());
@@ -91,6 +93,15 @@ public class App {
       Venue newVenue = new Venue(name);
       newVenue.save();
       response.redirect("/venues");
+      return null;
+    });
+
+    post("/bands/deleted/:id", (request, response) -> {
+      HashMap<String, Object> model = new HashMap<String, Object>();
+      int bandId = Integer.parseInt(request.params("id"));
+      Band band = Band.find(bandId);
+      band.delete();
+      response.redirect("/bands");
       return null;
     });
 
