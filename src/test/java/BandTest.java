@@ -88,5 +88,12 @@ public class BandTest {
     assertTrue(testBand.getVenues().contains(testVenue));
   }
 
+  @Test
+  public void update_changesName() {
+    Band newBand = new Band("Angels");
+    newBand.save();
+    newBand.update("Ceratops");
+    assertEquals("Ceratops", newBand.getName());
+  }
 
 }
