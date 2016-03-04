@@ -105,6 +105,13 @@ public class App {
       return null;
     });
 
+    post("/bands/clear", (request, response) -> {
+      HashMap<String, Object> model = new HashMap<String, Object>();
+      Band.deleteAll();
+      response.redirect("/bands");
+      return null;
+    });
+
 
   }
 }
