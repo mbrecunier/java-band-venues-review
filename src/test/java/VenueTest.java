@@ -71,5 +71,21 @@ public class VenueTest {
     assertTrue(Venue.all().size() == 0);
   }
 
+  @Test
+  public void getBands_returnsEmptyAtFirst() {
+    Venue testVenue = new Venue("The Moon");
+    testVenue.save();
+    assertTrue(testVenue.getBands().size() == 0);
+  }
+
+  @Test
+  public void addBand_addsBandToVenue() {
+    Venue testVenue = new Venue("The Moon");
+    testVenue.save();
+    Band testBand = new Band("Orange Flaggers");
+    testBand.save();
+    testVenue.addBand(testBand);
+    assertTrue(testVenue.getBands().contains(testBand));
+  }
 
 }
