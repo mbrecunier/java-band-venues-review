@@ -50,7 +50,16 @@ public class Band {
       Band band = con.createQuery(sql)
         .addParameter("id", id)
         .executeAndFetchFirst(Band.class);
-      return band;  
+      return band;
+    }
+  }
+
+  public void delete() {
+    try (Connection con = DB.sql2o.open()) {
+      String sql = "DELETE FROM bands WHERE id = :id;";
+      con.createQuery(sql)
+        .addParameter("id", this.id)
+        .executeUpdate();
     }
   }
 

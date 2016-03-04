@@ -53,5 +53,14 @@ public class BandTest {
     assertEquals(testBand, Band.find(testBand.getId()));
   }
 
+  @Test
+  public void delete_deletesBandFromDatabase() {
+    Band testBand = new Band("Constant Banana");
+    testBand.save();
+    testBand.delete();
+    assertFalse(Band.all().contains(testBand));
+
+  }
+
 
 }
