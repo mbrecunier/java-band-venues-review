@@ -82,6 +82,15 @@ public class AppTest extends FluentTest {
   }
 
   @Test
+  public void deletingBandRemovesItFromPage() {
+    Band testBand = new Band("Tree Huggers");
+    testBand.save();
+    String venueRoute = String.format("http://localhost:4567/bands/%d", testBand.getId());
+    submit(".btn-danger");
+    assertThat(pageSource()).doesNotContain("Tree Huggers");
+  }
+
+  @Test
   public void noVenuesDisplayAtFirst() {
     goTo("http://localhost:4567/venues");
     assertThat(pageSource()).contains("No venues yet!");
@@ -130,6 +139,6 @@ public class AppTest extends FluentTest {
     testVenue.save();
     String venueRoute = String.format("http://localhost:4567/venues/%d", testVenue.getId());
     submit(".btn-danger");
-    assertThat(pageSource()).doesNotContain("WitheringTree");    
+    assertThat(pageSource()).doesNotContain("WitheringTree");
   }
 }
