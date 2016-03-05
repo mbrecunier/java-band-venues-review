@@ -123,4 +123,13 @@ public class AppTest extends FluentTest {
     goTo(venueRoute);
     assertThat(pageSource()).contains("Salad Bar");
   }
+
+  @Test
+  public void deletingVenueRemovesItFromPage() {
+    Venue testVenue = new Venue("Withering Tree");
+    testVenue.save();
+    String venueRoute = String.format("http://localhost:4567/venues/%d", testVenue.getId());
+    submit(".btn-danger");
+    assertThat(pageSource()).doesNotContain("WitheringTree");    
+  }
 }
