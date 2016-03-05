@@ -26,8 +26,12 @@ Add, view, update, and delete bands. Add performance venues that bands have play
 * Open a new terminal window to start Postgres server:
     * $ postgres
 * Open a new terminal window to build the database:
-    * $ psql band_venues < band_venues.sql;
-* In the top level of the cloned directory, run the following command in your terminal:
+    * $ psql
+    * # CREATE DATABASE band_venues;
+    * # CREATE TABLE bands (id serial PRIMARY KEY, name varchar);
+    * # CREATE TABLE venues (id serial PRIMARY KEY, name varchar);
+    * # CREATE TABLE bands_venues (id serial PRIMARY KEY, band_id int, venue_id int);
+* Run the server in the top level of the cloned directory:
     * $ gradle run
 * Open your web browser of choice to localhost:4567
 
